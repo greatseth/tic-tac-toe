@@ -21,21 +21,28 @@ h1 {
   font-size: 2em;
 }
 
+$board_cell_size   : 100px;
+$board_cell_margin : 5px;
+
 #board {
   background: #eee;
   width: 315px;
   height: 315px;
-  padding: 5px 0 0 5px;
+  padding: $board_cell_margin 0 0 $board_cell_margin;
   margin: 10px auto;
 }
 
 #board li {
   background: #fff;
-  width: 100px;
-  height: 100px;
+  font-family: Georgia, serif;
+  font-size: 48px;
+  color: #333;
+  width: $board_cell_size;
+  height: $board_cell_size;
+  line-height: $board_cell_size;
   display: block;
   float: left;
-  margin: 0 5px 5px 0;
+  margin: 0 $board_cell_margin $board_cell_margin 0;
   padding: 0;
 }
 

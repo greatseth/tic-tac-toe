@@ -86,7 +86,7 @@ h1 {
   font-size: 2em;
 }
 
-/* line 24, ../sass/screen.scss */
+/* line 27, ../sass/screen.scss */
 #board {
   background: #eee;
   width: 315px;
@@ -95,18 +95,22 @@ h1 {
   margin: 10px auto;
 }
 
-/* line 32, ../sass/screen.scss */
+/* line 35, ../sass/screen.scss */
 #board li {
   background: #fff;
+  font-family: Georgia, serif;
+  font-size: 48px;
+  color: #333;
   width: 100px;
   height: 100px;
+  line-height: 100px;
   display: block;
   float: left;
   margin: 0 5px 5px 0;
   padding: 0;
 }
 
-/* line 42, ../sass/screen.scss */
+/* line 49, ../sass/screen.scss */
 #board li:hover {
   cursor: pointer;
   background-color: #eee;
