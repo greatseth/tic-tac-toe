@@ -1,0 +1,31 @@
+body {
+  text-align: center;
+}
+
+h1, h2, h3 {
+  font-family: Century Gothic, sans-serif;
+  text-transform: uppercase;
+}
+
+#board {
+  background: #eee;
+  width: 315px;
+  height: 315px;
+  padding: 5px 0 0 5px;
+  margin: 10px auto;
+}
+
+#board li {
+  background: #fff;
+  width: 100px;
+  height: 100px;
+  display: block;
+  float: left;
+  margin: 0 5px 5px 0;
+  padding: 0;
+}
+
+#board li:hover {
+  cursor: pointer;
+  background: #ccc;
+}
