@@ -33,21 +33,20 @@ TTT.Game = function(cells) {
     return false;
   });
 
-  // this.audio = {}
-  // var audio = this.audio;
-  // var audio_type = 
+  this.audio = {}
+  var audio = this.audio;
 
-  // $.each(["X", "O"], function(i,mark) {
-  //   audio[mark] = new Audio();
+  $.each(["X", "O"], function(i,mark) {
+    audio[mark] = new Audio();
 
-  //   if (audio[mark].canPlayType("audio/mpeg")) {
-  //     audio[mark].src = "audio/" + mark + ".mp3";
-  //   } else {
-  //     audio[mark].src = "audio/" + mark + ".ogg";
-  //   }
+    if (audio[mark].canPlayType("audio/mpeg")) {
+      audio[mark].src = "audio/" + mark + ".mp3";
+    } else {
+      audio[mark].src = "audio/" + mark + ".ogg";
+    }
 
-  //   audio[mark].load();
-  // });
+    audio[mark].load();
+  });
 }
 
 TTT.Game.prototype = {
@@ -103,7 +102,7 @@ TTT.Game.prototype = {
 
     if (mark) {
       cell.text(mark);
-      // this.play_sound_for_mark(mark);
+      this.play_sound_for_mark(mark);
     }
 
     if (cell.text() !== "") {
@@ -113,9 +112,9 @@ TTT.Game.prototype = {
     }
   },
 
-  // play_sound_for_mark: function(mark) {
-  //   this.audio[mark].play();
-  // },
+  play_sound_for_mark: function(mark) {
+    this.audio[mark].play();
+  },
 
   check_for_win: function(cell) {
     if (typeof(cell.text) !== 'function') {
