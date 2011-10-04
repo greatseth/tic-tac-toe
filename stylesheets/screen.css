@@ -71,34 +71,46 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 body {
   text-align: center;
   padding: 50px;
-  font-family: Helvetica, sans-serif;
+  font-family: Georgia, serif;
 }
 
 /* line 14, ../sass/screen.scss */
 h1, h2, h3 {
-  font-family: Century Gothic, sans-serif;
+  font-family: Georgia, serif;
   text-transform: uppercase;
-  margin: 0 0 1em 0;
+  margin: 0 0 .5em 0;
 }
 
 /* line 20, ../sass/screen.scss */
 h1 {
   font-size: 2em;
 }
-
-/* line 27, ../sass/screen.scss */
-#board {
-  background: #eee;
-  width: 315px;
-  height: 315px;
-  padding: 5px 0 0 5px;
-  margin: 10px auto;
+/* line 23, ../sass/screen.scss */
+h1 em {
+  font-weight: bold;
 }
 
-/* line 35, ../sass/screen.scss */
+/* line 28, ../sass/screen.scss */
+p {
+  margin: 0 0 1em 0;
+}
+
+/* line 36, ../sass/screen.scss */
+#board {
+  border-radius: 5px;
+  background: #eee;
+  width: 321px;
+  height: 321px;
+  padding: 5px 0 0 5px;
+  margin: 1em auto;
+  border: 1px solid #999;
+}
+
+/* line 46, ../sass/screen.scss */
 #board li {
+  border-radius: 5px;
+  border: 1px solid #999;
   background: #fff;
-  font-family: Georgia, serif;
   font-size: 48px;
   color: #333;
   width: 100px;
@@ -110,8 +122,9 @@ h1 {
   padding: 0;
 }
 
-/* line 49, ../sass/screen.scss */
+/* line 61, ../sass/screen.scss */
 #board li:hover {
   cursor: pointer;
-  background-color: #eee;
+  background-color: salmon;
+  border: 1px solid #666;
 }

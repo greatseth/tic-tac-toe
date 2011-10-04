@@ -8,33 +8,45 @@
 body {
   text-align: center;
   padding: 50px;
-  font-family: Helvetica, sans-serif;
+  font-family: Georgia, serif;
 }
 
 h1, h2, h3 {
-  font-family: Century Gothic, sans-serif;
+  font-family: Georgia, serif;
   text-transform: uppercase;
-  margin: 0 0 1em 0;
+  margin: 0 0 .5em 0;
 }
 
 h1 {
   font-size: 2em;
+
+  em {
+    font-weight: bold;
+  }
 }
 
-$board_cell_size   : 100px;
-$board_cell_margin : 5px;
+p {
+  margin: 0 0 1em 0;
+}
+
+$board_cell_size     : 100px;
+$board_cell_margin   : 5px;
+$board_border_radius : 5px;
 
 #board {
+  border-radius: $board_border_radius;
   background: #eee;
-  width: 315px;
-  height: 315px;
+  width: 321px;
+  height: 321px;
   padding: $board_cell_margin 0 0 $board_cell_margin;
-  margin: 10px auto;
+  margin: 1em auto;
+  border: 1px solid #999;
 }
 
 #board li {
+  border-radius: $board_border_radius;
+  border: 1px solid #999;
   background: #fff;
-  font-family: Georgia, serif;
   font-size: 48px;
   color: #333;
   width: $board_cell_size;
@@ -48,5 +60,6 @@ $board_cell_margin : 5px;
 
 #board li:hover {
   cursor: pointer;
-  background-color: #eee;
+  background-color: salmon;
+  border: 1px solid #666;
 }
