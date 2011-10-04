@@ -6,10 +6,6 @@ describe("TTT.Game instance methods", function() {
   });
 
   describe("mark", function() {
-    beforeEach(function() {
-      TTT.Game.prototype.play_sound_for_mark = function(mark) {};
-    });
-
     describe("with an argument", function() {
       it("marks the given cell", function() {
         game.mark(game.cells[0], "X");

@@ -10,22 +10,21 @@ TTT.Game = function(cells) {
 
   game.cells.click(function(e) {
     var c = $(e.target);
+    var mark = (game.x_turn() ? "X" : "O");
 
     if (!game.mark(c)) {
-      game.mark(c, game.x_turn() ? "X" : "O");
+      game.mark(c, mark);
       
       // TODO this is a nightmare API done while sleep deprived. Fix.
       var game_state = game.check_for_win(c);
 
       if (null === game_state) {
-        if (confirm("It's a draw! Reset?")) {
-          TTT.reset_game();
-        }
+        game.play_audio("Sad-Trombone");
+        if (confirm("It's a draw! Reset?")) { TTT.reset_game(); }
       } else if (game_state.length) {
-        if (confirm(game.mark(c) + " wins! Reset?")) {
-          TTT.reset_game();
-        }
+        if (confirm(game.mark(c) + " wins! Reset?")) { TTT.reset_game(); }
       } else {
+        game.play_audio(mark);
         game.advance_turn();
       }
     }
@@ -33,19 +32,8 @@ TTT.Game = function(cells) {
     return false;
   });
 
-  this.audio = {}
-  var audio = this.audio;
-
-  $.each(["X", "O"], function(i,mark) {
-    audio[mark] = new Audio();
-
-    if (audio[mark].canPlayType("audio/mpeg")) {
-      audio[mark].src = "audio/" + mark + ".mp3";
-    } else {
-      audio[mark].src = "audio/" + mark + ".ogg";
-    }
-
-    audio[mark].load();
+  $.each(["X", "O", "Sad-Trombone"], function(i, basename) {
+    game.load_audio(basename);
   });
 }
 
@@ -102,7 +90,6 @@ TTT.Game.prototype = {
 
     if (mark) {
       cell.text(mark);
-      this.play_sound_for_mark(mark);
     }
 
     if (cell.text() !== "") {
@@ -110,10 +97,6 @@ TTT.Game.prototype = {
     } else {
       return null;
     }
-  },
-
-  play_sound_for_mark: function(mark) {
-    this.audio[mark].play();
   },
 
   check_for_win: function(cell) {
@@ -154,5 +137,26 @@ TTT.Game.prototype = {
 
     if (draw) return null;
     return false;
+  },
+
+  load_audio: function(basename) {
+    var sound = new Audio();
+
+    if (sound.canPlayType("audio/mpeg")) {
+      sound.src = "audio/" + basename + ".mp3";
+    } else {
+      sound.src = "audio/" + basename + ".ogg";
+    }
+
+    sound.load();
+
+    if (!this.audio) { this.audio = {}; }
+    this.audio[basename] = sound; 
+
+    return sound;
+  },
+
+  play_audio: function(basename) {
+    this.audio[basename].play();
   }
 };
