@@ -5,7 +5,14 @@
 
 @import "compass/reset";
 
+$green        : #79B34E;
+$grey         : #999;
+$light_grey   : #efefef;
+$medium_grey  : #666;
+
 body {
+  background: #fff;
+  color: #000;
   text-align: center;
   padding: 50px;
   font-family: Georgia, serif;
@@ -29,24 +36,60 @@ p {
   margin: 0 0 1em 0;
 }
 
+a {
+  color: $medium_grey;
+}
+
 $board_cell_size     : 100px;
-$board_cell_margin   : 5px;
-$board_border_radius : 5px;
+$board_cell_margin   : 1px;
+$board_border        : $board_cell_margin solid #000;
+$board_size          : (($board_cell_size + $board_cell_margin) * 3) - 1;
+
+
+section.player {
+  width: $board_size;
+  height: $board_size;
+  line-height: $board_size;
+  border: 1px solid #000;
+  margin: 2em;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+
+  * {
+    vertical-align: middle;
+  }
+
+  label {
+    font-size: $board_size;
+  }
+
+  input {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -17px 0 0 -131px;
+    font-size: 24px;
+    font-weight: bold;
+    border: 2px solid #000;
+    border-radius: 3px;
+  }
+}
+
 
 #board {
-  border-radius: $board_border_radius;
-  background: #eee;
-  width: 321px;
-  height: 321px;
-  padding: $board_cell_margin 0 0 $board_cell_margin;
-  margin: 1em auto;
-  border: 1px solid #999;
+  display: inline-block;
+  vertical-align: middle;
+  width: $board_size;
+  height: $board_size;
+  margin: 2em;
+  border: $board_border;
 }
 
 #board li {
-  border-radius: $board_border_radius;
-  border: 1px solid #999;
-  background: #fff;
+  border-right: $board_border;
+  border-bottom: $board_border;
   font-size: 48px;
   color: #333;
   width: $board_cell_size;
@@ -54,12 +97,33 @@ $board_border_radius : 5px;
   line-height: $board_cell_size;
   display: block;
   float: left;
-  margin: 0 $board_cell_margin $board_cell_margin 0;
-  padding: 0;
+
+  &.nb { border-bottom: none }
+  &.nr { border-right:  none }
 }
 
 #board li:hover {
   cursor: pointer;
-  background-color: salmon;
-  border: 1px solid #666;
+  background-color: $light_grey;
+}
+
+#board li.marked:hover {
+  cursor: default;
+}
+
+#board li.winner {
+  background: $green;
+  color: #fff;
+}
+
+#board li.winner:hover {
+  background: #79B34E;
+}
+
+#notice {
+  width: $board_size;
+  margin: 1em auto;
+  font-size: 36px;
+  font-family: Century Gothic, sans-serif;
+  text-transform: uppercase;
 }

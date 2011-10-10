@@ -1,43 +1,21 @@
-TTT.reset_game = function() {
-  TTT.current_game = new TTT.Game($("#board li"));
-}
+// depends on jQuery
 
-TTT.Game = function(cells) {
+TTT.Game = function(callback) {
   var game = this;
-
-  game.turn  = 1;
-  game.set_cells(cells);
-
-  game.cells.click(function(e) {
-    var c = $(e.target);
-    var mark = (game.x_turn() ? "X" : "O");
-
-    if (!game.mark(c)) {
-      game.mark(c, mark);
-      
-      // TODO this is a nightmare API done while sleep deprived. Fix.
-      var game_state = game.check_for_win(c);
-
-      if (null === game_state) {
-        game.play_audio("Sad-Trombone");
-        if (confirm("It's a draw! Reset?")) { TTT.reset_game(); }
-      } else if (game_state.length) {
-        if (confirm(game.mark(c) + " wins! Reset?")) { TTT.reset_game(); }
-      } else {
-        game.play_audio(mark);
-        game.advance_turn();
-      }
-    }
-    
-    return false;
-  });
-
-  $.each(["X", "O", "Sad-Trombone"], function(i, basename) {
-    game.load_audio(basename);
-  });
+  if (callback) { callback(game); }
+  game.advance_turn();
 }
+
+TTT.Game.STATES = {
+  WIN:  "WIN",
+  DRAW: "DRAW"
+};
 
 TTT.Game.prototype = {
+  callbacks: {},
+
+  mute: false,
+
   wins: [
     [0,1,2],
     [3,4,5],
@@ -51,18 +29,6 @@ TTT.Game.prototype = {
     [2,4,6]
   ],
 
-  wins_index: {
-    "0": [0,3,6],
-    "1": [0,4],
-    "2": [0,5,7],
-    "3": [1,3],
-    "4": [1,4,6,7],
-    "5": [1,5],
-    "6": [2,3,7],
-    "7": [2,4],
-    "8": [2,5,6]
-  },
-
   set_cells: function(cells) {
     this.cells = cells;
 
@@ -72,7 +38,10 @@ TTT.Game.prototype = {
   },
 
   advance_turn: function() {
+    if (this.turn === undefined) { this.turn = 0; }
     this.turn = this.turn + 1;
+    if (this.callbacks.turn !== undefined) { this.callbacks.turn(); }
+    return this.turn;
   },
 
   o_turn: function() {
@@ -83,14 +52,14 @@ TTT.Game.prototype = {
     return !(this.o_turn());
   },
 
-  mark: function(cell, mark) {
-    if (typeof(cell.text) !== 'function') {
-      cell = $(cell);
-    }
+  mark_for_turn: function() {
+    return (this.x_turn() ? "X" : "O");
+  },
 
-    if (mark) {
-      cell.text(mark);
-    }
+  mark: function(cell, mark) {
+    if (typeof(cell.text) !== 'function') { cell = $(cell); }
+
+    if (mark) { cell.text(mark); }
 
     if (cell.text() !== "") {
       return cell.text();
@@ -99,44 +68,55 @@ TTT.Game.prototype = {
     }
   },
 
-  check_for_win: function(cell) {
-    if (typeof(cell.text) !== 'function') {
-      cell = $(cell);
-    }
-
+  check_for_win: function() {
     // first, check for a win
     var win          = false;
-    var mark         = cell.text();
-    var marked_index = cell.data("index");
+    var mark         = this.mark_for_turn();
 
-    var possible_win_set_indexes = this.wins_index[marked_index];
+    var possible_win_set, winning_set;
 
-    for (var i = 0; i < possible_win_set_indexes.length; i++) {
-      var possible_win_set_index = possible_win_set_indexes[i];
-      var possible_win_set       = this.wins[possible_win_set_index];
+    for (var i = 0; i < this.wins.length; i++) {
+      possible_win_set = this.wins[i];
 
       win = ( $(this.cells[possible_win_set[0]]).text() == mark &&
               $(this.cells[possible_win_set[1]]).text() == mark &&
               $(this.cells[possible_win_set[2]]).text() == mark );
 
-      if (win) { break; }
+      if (win) {
+        winning_set = possible_win_set;
+        break;
+      }
     }
 
     if (win) {
-      return possible_win_set;
+      if (this.callbacks.win !== undefined) {
+        this.callbacks.win(winning_set);
+      }
+
+      return {
+        state: TTT.Game.STATES.WIN,
+        winning_set: winning_set
+      };
     }
 
     // now, check for a draw
     var draw = true;
-    
+
     $.each(this.cells, function(i,c) {
       if ("" === $(c).text()) {
         draw = false;
       }
     });
 
-    if (draw) return null;
-    return false;
+    if (draw) {
+      if (this.callbacks.draw !== undefined) { this.callbacks.draw(); }
+
+      return {
+        state: TTT.Game.STATES.DRAW
+      };
+    }
+
+    return null;
   },
 
   load_audio: function(basename) {
@@ -151,12 +131,13 @@ TTT.Game.prototype = {
     sound.load();
 
     if (!this.audio) { this.audio = {}; }
-    this.audio[basename] = sound; 
+    this.audio[basename] = sound;
 
     return sound;
   },
 
   play_audio: function(basename) {
+    if (this.mute) { return; }
     this.audio[basename].play();
   }
 };
