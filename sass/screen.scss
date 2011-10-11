@@ -41,7 +41,7 @@ a {
   color: $medium_grey;
 }
 
-$board_cell_size     : 100px;
+$board_cell_size     : 80px;
 $board_cell_margin   : 1px;
 $board_border        : $board_cell_margin solid #000;
 $board_size          : (($board_cell_size + $board_cell_margin) * 3) - 1;
@@ -58,6 +58,7 @@ section.player {
   vertical-align: middle;
   position: relative;
   color: $light_grey;
+  margin: 1em 0;
 
   * {
     vertical-align: middle;

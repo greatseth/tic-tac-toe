@@ -108,20 +108,21 @@ section.player {
   -webkit-transition: color 1s;
   -o-transition: color 1s;
   transition: color 1s;
-  width: 241.6px;
-  height: 302px;
-  line-height: 302px;
+  width: 193.6px;
+  height: 242px;
+  line-height: 242px;
   margin: 2em;
   display: inline-block;
   vertical-align: middle;
   position: relative;
   color: #efefef;
+  margin: 1em 0;
 }
-/* line 62, ../sass/screen.scss */
+/* line 63, ../sass/screen.scss */
 section.player * {
   vertical-align: middle;
 }
-/* line 66, ../sass/screen.scss */
+/* line 67, ../sass/screen.scss */
 section.player.active {
   -moz-transition: color 1s;
   -webkit-transition: color 1s;
@@ -129,11 +130,11 @@ section.player.active {
   transition: color 1s;
   color: #000;
 }
-/* line 71, ../sass/screen.scss */
+/* line 72, ../sass/screen.scss */
 section.player label {
-  font-size: 241.6px;
+  font-size: 193.6px;
 }
-/* line 75, ../sass/screen.scss */
+/* line 76, ../sass/screen.scss */
 section.player input {
   display: none;
   position: absolute;
@@ -146,61 +147,61 @@ section.player input {
   border-radius: 3px;
 }
 
-/* line 89, ../sass/screen.scss */
+/* line 90, ../sass/screen.scss */
 #board {
   display: inline-block;
   vertical-align: middle;
-  width: 302px;
-  height: 302px;
+  width: 242px;
+  height: 242px;
   margin: 2em;
 }
 
-/* line 97, ../sass/screen.scss */
+/* line 98, ../sass/screen.scss */
 #board li {
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   font-size: 48px;
   color: #333;
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
   display: block;
   float: left;
 }
-/* line 108, ../sass/screen.scss */
+/* line 109, ../sass/screen.scss */
 #board li.nb {
   border-bottom: none;
 }
-/* line 109, ../sass/screen.scss */
+/* line 110, ../sass/screen.scss */
 #board li.nr {
   border-right: none;
 }
 
-/* line 112, ../sass/screen.scss */
+/* line 113, ../sass/screen.scss */
 #board li:hover {
   cursor: pointer;
   background-color: #efefef;
 }
 
-/* line 117, ../sass/screen.scss */
+/* line 118, ../sass/screen.scss */
 #board li.marked:hover {
   cursor: default;
 }
 
-/* line 121, ../sass/screen.scss */
+/* line 122, ../sass/screen.scss */
 #board li.winner {
   background: #79b34e;
   color: #fff;
 }
 
-/* line 126, ../sass/screen.scss */
+/* line 127, ../sass/screen.scss */
 #board li.winner:hover {
   background: #79B34E;
 }
 
-/* line 130, ../sass/screen.scss */
+/* line 131, ../sass/screen.scss */
 #notice {
-  width: 302px;
+  width: 242px;
   margin: 1em auto;
   font-size: 36px;
   text-transform: uppercase;
