@@ -206,3 +206,10 @@ section.player input {
   font-size: 36px;
   text-transform: uppercase;
 }
+
+/* line 138, ../sass/screen.scss */
+#settings {
+  width: 242px;
+  margin: 1em auto;
+  text-align: center;
+}

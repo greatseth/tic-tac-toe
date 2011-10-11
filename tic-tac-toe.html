@@ -6,58 +6,10 @@
     <link rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="screen" charset="utf-8">
     <script type="text/javascript" charset="utf-8" src="javascripts/jquery-1.6.4.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="javascripts/TTT.js"></script>
-    <script type="text/javascript" charset="utf-8" src="javascripts/TTT/Game.js"></script>
+    <script type="text/javascript" charset="utf-8" src="javascripts/TTT/game.js"></script>
+    <script type="text/javascript" charset="utf-8" src="javascripts/TTT/ui.js"></script>
     <script type="text/javascript" charset="utf-8">
-      window.onload = function() {
-        TTT.current_game = new TTT.Game(function(game) {
-          game.mute = true;
-
-          game.set_cells($("#board li"));
-
-          game.cells.click(function(e) {
-            var c    = $(e.target);
-            var mark = game.mark_for_turn();
-
-            if (!game.mark(c)) {
-              game.mark(c, mark);
-              c.addClass("marked");
-
-              var game_state = game.check_for_win();
-
-              // a win or a draw
-              if (game_state) {
-                if (TTT.Game.STATES.DRAW === game_state.state) {
-                  game.play_audio("Sad-Trombone");
-                  $("#notice").text("It's a draw!");
-
-                } else if (TTT.Game.STATES.WIN === game_state.state) {
-                  $.each(game_state.winning_set, function(i,cell_index) {
-                    $(game.cells[cell_index]).addClass("winner");
-                  });
-                  game.play_audio("applause");
-                  $("#notice").text(game.mark(c) + " wins!");
-                }
-
-              // game in progress
-              } else {
-                game.play_audio(mark);
-                game.advance_turn();
-              }
-            }
-
-            return false;
-          }); // cells.click
-
-          game.callbacks.turn = function() {
-            $(".player.active").removeClass("active");
-            $("#player_" + game.mark_for_turn()).addClass("active");
-          };
-
-          $.each(["X", "O", "Sad-Trombone", "applause"], function(i, basename) {
-            game.load_audio(basename);
-          });
-        }); // new TTT.Game
-      };
+      window.onload = TTT.UI.load;
     </script>
   </head>
   <body>
@@ -83,5 +35,10 @@
     </section>
 
     <p id="notice"></p>
+
+    <section id="settings">
+      <label for="mute">Mute</label>
+      <input type="checkbox" id="mute" />
+    </section>
   </body>
 </html>
