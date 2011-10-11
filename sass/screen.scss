@@ -4,6 +4,7 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+@import "compass/css3/transition";
 
 $green        : #79B34E;
 $grey         : #999;
@@ -45,12 +46,13 @@ $board_cell_margin   : 1px;
 $board_border        : $board_cell_margin solid #000;
 $board_size          : (($board_cell_size + $board_cell_margin) * 3) - 1;
 
+$player_width : $board_size * 0.8;
 
 section.player {
-  width: $board_size;
+  @include transition(color 1s);
+  width: $player_width;
   height: $board_size;
   line-height: $board_size;
-  border: 1px solid #000;
   margin: 2em;
   display: inline-block;
   vertical-align: middle;
@@ -62,11 +64,12 @@ section.player {
   }
 
   &.active {
+    @include transition(color 1s);
     color: #000;
   }
 
   label {
-    font-size: $board_size;
+    font-size: $player_width;
   }
 
   input {
@@ -89,7 +92,6 @@ section.player {
   width: $board_size;
   height: $board_size;
   margin: 2em;
-  border: $board_border;
 }
 
 #board li {
@@ -129,6 +131,5 @@ section.player {
   width: $board_size;
   margin: 1em auto;
   font-size: 36px;
-  font-family: Century Gothic, sans-serif;
   text-transform: uppercase;
 }
