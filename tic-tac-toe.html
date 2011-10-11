@@ -48,6 +48,11 @@
             return false;
           }); // cells.click
 
+          game.callbacks.turn = function() {
+            $(".player.active").removeClass("active");
+            $("#player_" + game.mark_for_turn()).addClass("active");
+          };
+
           $.each(["X", "O", "Sad-Trombone", "applause"], function(i, basename) {
             game.load_audio(basename);
           });
@@ -61,12 +66,10 @@
       <h3>by <a href="http://greatseth.com">Seth</a></h3>
     </section>
 
-    <!--
-    <section class="player" id="player_x">
-      <label for="player_x_name">X</label>
-      <input type="text" id="player_x_name" />
+    <section class="player" id="player_X">
+      <label for="player_X_name">X</label>
+      <input type="text" id="player_X_name" />
     </section>
-    -->
 
     <ul id="board">
       <li></li> <li></li> <li class="nr"></li>
@@ -74,12 +77,10 @@
       <li class="nb"></li> <li class="nb"></li> <li class="nr nb"></li>
     </ul>
 
-    <!--
-    <section class="player" id="player_o">
-      <label for="player_o_name">O</label>
-      <input type="text" id="player_o_name" />
+    <section class="player" id="player_O">
+      <label for="player_O_name">O</label>
+      <input type="text" id="player_O_name" />
     </section>
-    -->
 
     <p id="notice"></p>
   </body>

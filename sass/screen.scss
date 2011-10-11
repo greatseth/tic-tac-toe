@@ -55,9 +55,14 @@ section.player {
   display: inline-block;
   vertical-align: middle;
   position: relative;
+  color: $light_grey;
 
   * {
     vertical-align: middle;
+  }
+
+  &.active {
+    color: #000;
   }
 
   label {
