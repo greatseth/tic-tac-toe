@@ -20,13 +20,10 @@ TTT.Game.prototype = {
 
   run_callback: function() {
     var args = Array.prototype.slice.call(arguments);
-    console.log("run_callback arguments", args);
     var callback_name = args.shift();
-    console.log("callback name", callback_name);
 
     if (this.callback_defined(callback_name)) {
-      console.log("callback arguments", args);
-      this.callbacks[callback_name](args);
+      this.callbacks[callback_name].apply(this, args);
     }
   },
 
@@ -75,7 +72,11 @@ TTT.Game.prototype = {
   mark: function(cell, mark) {
     if (typeof(cell.text) !== 'function') { cell = $(cell); }
 
-    if (mark) { cell.text(mark); }
+    if (mark) {
+      cell.text(mark);
+      this.run_callback('mark', cell, mark);
+    }
+
 
     if (cell.text() !== "") {
       return cell.text();

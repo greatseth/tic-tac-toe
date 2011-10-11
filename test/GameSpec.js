@@ -38,7 +38,7 @@ describe("TTT.Game instance methods", function() {
     });
 
     describe("when the given callback is defined", function() {
-      it("calls the given callback", function() {
+      it("runs the given callback", function() {
         game.callbacks.turn = function() {};
         spyOn(game.callbacks, 'turn');
         game.advance_turn();
@@ -62,6 +62,13 @@ describe("TTT.Game instance methods", function() {
       it("marks the given cell", function() {
         game.mark(game.cells[0], "X");
         expect($(game.cells[0]).text()).toEqual("X");
+      });
+
+      it("runs the mark callback", function() {
+        game.callbacks.mark = function(cell, mark) {};
+        spyOn(game.callbacks, 'mark');
+        game.mark(game.cells[0], "X");
+        expect(game.callbacks.mark).toHaveBeenCalledWith($(game.cells[0]), "X");
       });
     });
 
@@ -114,7 +121,7 @@ describe("TTT.Game instance methods", function() {
         });
       });
 
-      it("calls the win callback", function() {
+      it("runs the win callback", function() {
         game.callbacks.win = function(winning_set) {};
         spyOn(game.callbacks, 'win');
         game.check_for_win();
@@ -141,7 +148,7 @@ describe("TTT.Game instance methods", function() {
         });
       });
 
-      it("calls the draw callback", function() {
+      it("runs the draw callback", function() {
         game.callbacks.draw = function() {};
         spyOn(game.callbacks, 'draw');
         game.check_for_win();
@@ -159,7 +166,7 @@ describe("TTT.Game instance methods", function() {
       expect(game.turn).toEqual(3);
     });
 
-    it("calls the turn callback", function() {
+    it("runs the turn callback", function() {
       game.callbacks.turn = function() {};
       spyOn(game.callbacks, 'turn');
       game.advance_turn();
