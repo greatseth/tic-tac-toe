@@ -1,9 +1,12 @@
 describe("TTT.Game instance methods", function() {
+  var game;
+
+  var game_cells = "";
+  for (var i = 0; i < 9; i++) { game_cells = game_cells + "<li></li>"; }
+
   beforeEach(function() {
-    var cells = "";
-    for (var i = 0; i < 9; i++) { cells = cells + "<li></li>"; }
     game = new TTT.Game(function(g) {
-      g.set_cells($(cells));
+      g.set_cells($(game_cells));
     });
   });
 
@@ -18,6 +21,7 @@ describe("TTT.Game instance methods", function() {
     describe("the given callback is undefined", function() {
       it("returns false", function() {
         expect(game.callback_defined("turn")).toBeFalsy();
+        expect(game.callback_defined("undefined")).toBeFalsy();
       });
     });
   });

@@ -1,9 +1,9 @@
 // depends on jQuery
 
-TTT.Game = function(callback) {
-  var game = this;
-  if (callback) { callback(game); }
-  game.advance_turn();
+TTT.Game = function(configuration) {
+  this.callbacks = {};
+  if (configuration) { configuration(this); }
+  this.advance_turn();
 };
 
 TTT.Game.STATES = {
@@ -12,8 +12,6 @@ TTT.Game.STATES = {
 };
 
 TTT.Game.prototype = {
-  callbacks: {},
-
   callback_defined: function(callback_name) {
     return (this.callbacks[callback_name] !== undefined);
   },
