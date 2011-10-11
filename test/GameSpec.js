@@ -7,6 +7,46 @@ describe("TTT.Game instance methods", function() {
     });
   });
 
+  describe("callback_defined", function() {
+    describe("the given callback is defined", function() {
+      it("returns true", function() {
+        game.callbacks.turn = function() {};
+        expect(game.callback_defined("turn")).toBeTruthy();
+      });
+    });
+
+    describe("the given callback is undefined", function() {
+      it("returns false", function() {
+        expect(game.callback_defined("turn")).toBeFalsy();
+      });
+    });
+  });
+
+  describe("run_callback", function() {
+    describe("when the given callback is undefined", function() {
+      it("does not call the given callback", function() {
+        // you can't spy on undefined
+        game.callbacks.turn = function() {};
+        // but we can stub our check for defined callbacks
+        game.callback_defined = function(c) { return false; };
+        // yeah.. annoying
+        spyOn(game.callbacks, 'turn');
+
+        game.advance_turn();
+        expect(game.callbacks.turn).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("when the given callback is defined", function() {
+      it("calls the given callback", function() {
+        game.callbacks.turn = function() {};
+        spyOn(game.callbacks, 'turn');
+        game.advance_turn();
+        expect(game.callbacks.turn).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe("mark_for_turn", function() {
     it("returns X or O depending on the current turn", function() {
       expect(game.mark_for_turn()).toEqual("X");
@@ -21,7 +61,7 @@ describe("TTT.Game instance methods", function() {
     describe("with an argument", function() {
       it("marks the given cell", function() {
         game.mark(game.cells[0], "X");
-        expect($(game.cells[0]).text()).toEqual("X")
+        expect($(game.cells[0]).text()).toEqual("X");
       });
     });
 
@@ -29,13 +69,13 @@ describe("TTT.Game instance methods", function() {
       describe("when the cell is marked", function() {
         it("returns the mark", function() {
           game.mark(game.cells[0], "X");
-          expect(game.mark(game.cells[0])).toEqual("X")
+          expect(game.mark(game.cells[0])).toEqual("X");
         });
       });
 
       describe("when the cell is not marked", function() {
         it("returns null", function() {
-          expect(game.mark(game.cells[0])).toEqual(null)
+          expect(game.mark(game.cells[0])).toEqual(null);
         });
       });
     });

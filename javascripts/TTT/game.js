@@ -4,7 +4,7 @@ TTT.Game = function(callback) {
   var game = this;
   if (callback) { callback(game); }
   game.advance_turn();
-}
+};
 
 TTT.Game.STATES = {
   WIN:  "WIN",
@@ -13,6 +13,22 @@ TTT.Game.STATES = {
 
 TTT.Game.prototype = {
   callbacks: {},
+
+  callback_defined: function(callback_name) {
+    return (this.callbacks[callback_name] !== undefined);
+  },
+
+  run_callback: function() {
+    var args = Array.prototype.slice.call(arguments);
+    console.log("run_callback arguments", args);
+    var callback_name = args.shift();
+    console.log("callback name", callback_name);
+
+    if (this.callback_defined(callback_name)) {
+      console.log("callback arguments", args);
+      this.callbacks[callback_name](args);
+    }
+  },
 
   mute: false,
 
@@ -40,7 +56,7 @@ TTT.Game.prototype = {
   advance_turn: function() {
     if (this.turn === undefined) { this.turn = 0; }
     this.turn = this.turn + 1;
-    if (this.callbacks.turn !== undefined) { this.callbacks.turn(); }
+    this.run_callback('turn');
     return this.turn;
   },
 
@@ -89,9 +105,7 @@ TTT.Game.prototype = {
     }
 
     if (win) {
-      if (this.callbacks.win !== undefined) {
-        this.callbacks.win(winning_set);
-      }
+      this.run_callback('win', winning_set);
 
       return {
         state: TTT.Game.STATES.WIN,
@@ -109,7 +123,7 @@ TTT.Game.prototype = {
     });
 
     if (draw) {
-      if (this.callbacks.draw !== undefined) { this.callbacks.draw(); }
+      this.run_callback('draw');
 
       return {
         state: TTT.Game.STATES.DRAW
