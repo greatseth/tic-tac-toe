@@ -10,7 +10,6 @@ TTT.UI = {
 
       if (!game.mark(c)) {
         game.mark(c, mark);
-        // TODO mark callback
 
         if (!game.check_for_win()) {
           game.advance_turn();
@@ -18,7 +17,7 @@ TTT.UI = {
       }
 
       return false;
-    }); // cells.click
+    });
 
     game.callbacks.turn = function() {
       $(".player.active").removeClass("active");
@@ -27,27 +26,34 @@ TTT.UI = {
 
     game.callbacks.mark = function(cell, mark) {
       cell.addClass("marked");
-      this.play_audio(mark);
+      var phonetone = this.cells.index(cell[0]) + 1;
+      this.play_audio(phonetone);
     };
 
     game.callbacks.draw = function() {
       this.play_audio("Sad-Trombone");
+      $(".player").removeClass("active");
       $("#notice").text("It's a draw!");
     };
 
     game.callbacks.win = function(winning_set) {
+      this.play_audio("applause");
+      $(".player").removeClass("active");
       for (var i = 0; i < winning_set.length; i++) {
         $(this.cells[winning_set[i]]).addClass("winner");
       }
-
-      this.play_audio("applause");
-
       $("#notice").text(this.mark_for_turn() + " wins!");
     };
 
-    $.each(["X", "O", "Sad-Trombone", "applause"], function(i, basename) {
-      game.load_audio(basename);
-    });
+    var preload_audio = [
+      "1", "2", "3", "4", "5", "6", "7", "8", "9",
+      "Sad-Trombone",
+      "applause"
+    ];
+
+    for (var i = 0; i < preload_audio.length; i++) {
+      game.load_audio(preload_audio[i]);
+    }
   },
 
   observe_mute: function() {
