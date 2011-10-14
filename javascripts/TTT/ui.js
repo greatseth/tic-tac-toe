@@ -37,7 +37,7 @@ TTT.UI = {
 
     game.callbacks.win = function(winning_set) {
       for (var i = 0; i < winning_set.length; i++) {
-        $(this.cells[i]).addClass("winner");
+        $(this.cells[winning_set[i]]).addClass("winner");
       }
 
       this.play_audio("applause");
