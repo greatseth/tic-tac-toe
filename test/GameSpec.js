@@ -113,15 +113,15 @@ describe("TTT.Game instance methods", function() {
 
     describe("a win", function() {
       beforeEach(function() {
-        game.mark(game.cells[0], "X");
         game.mark(game.cells[1], "X");
-        game.mark(game.cells[2], "X");
+        game.mark(game.cells[4], "X");
+        game.mark(game.cells[7], "X");
       });
 
       it("returns the winning set of cell indexes",  function() {
         expect(game.check_for_win()).toEqual({
           state: TTT.Game.STATES.WIN,
-          winning_set: [0,1,2]
+          winning_set: [1,4,7]
         });
       });
 
@@ -129,7 +129,7 @@ describe("TTT.Game instance methods", function() {
         game.callbacks.win = function(winning_set) {};
         spyOn(game.callbacks, 'win');
         game.check_for_win();
-        expect(game.callbacks.win).toHaveBeenCalledWith([0,1,2]);
+        expect(game.callbacks.win).toHaveBeenCalledWith([1,4,7]);
       });
     });
 
