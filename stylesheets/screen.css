@@ -186,20 +186,21 @@ section.player input {
 /* line 118, ../sass/screen.scss */
 #board li.marked:hover {
   cursor: default;
+  background: none;
 }
 
-/* line 122, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
 #board li.winner {
   background: #79b34e;
   color: #fff;
 }
 
-/* line 127, ../sass/screen.scss */
+/* line 128, ../sass/screen.scss */
 #board li.winner:hover {
   background: #79B34E;
 }
 
-/* line 131, ../sass/screen.scss */
+/* line 132, ../sass/screen.scss */
 #notice {
   width: 242px;
   margin: 1em auto;
@@ -207,7 +208,7 @@ section.player input {
   text-transform: uppercase;
 }
 
-/* line 138, ../sass/screen.scss */
+/* line 139, ../sass/screen.scss */
 #settings {
   width: 242px;
   margin: 1em auto;
