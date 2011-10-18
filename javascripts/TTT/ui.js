@@ -1,7 +1,5 @@
 TTT.UI = {
   setup_game: function(game) {
-    game.mute = true;
-
     game.set_cells($("#board li"));
 
     game.cells.click(function(e) {
