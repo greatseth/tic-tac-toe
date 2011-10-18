@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>TIC-TAC-2: THE EXTREME</title>
+    <link rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="screen" charset="utf-8">
+    <script type="text/javascript" charset="utf-8" src="javascripts/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="javascripts/TTT.js"></script>
+    <script type="text/javascript" charset="utf-8" src="javascripts/TTT/game.js"></script>
+    <script type="text/javascript" charset="utf-8" src="javascripts/TTT/ui.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      window.onload = TTT.UI.load;
+    </script>
+  </head>
+  <body>
+    <section id="header">
+      <h1>TIC TAC TWO: <em>THE EXTREME</em></h1>
+      <h3>by <a href="http://greatseth.com">Seth</a></h3>
+    </section>
+
+    <section class="player" id="player_X">
+      <label for="player_X_name">X</label>
+      <input type="text" id="player_X_name" />
+    </section>
+
+    <ul id="board">
+      <li></li> <li></li> <li class="nr"></li>
+      <li></li> <li></li> <li class="nr"></li>
+      <li class="nb"></li> <li class="nb"></li> <li class="nr nb"></li>
+    </ul>
+
+    <section class="player" id="player_O">
+      <label for="player_O_name">O</label>
+      <input type="text" id="player_O_name" />
+    </section>
+
+    <p id="notice"></p>
+
+    <section id="settings">
+      <label for="mute">Mute</label>
+      <input type="checkbox" id="mute" />
+    </section>
+  </body>
+</html>
