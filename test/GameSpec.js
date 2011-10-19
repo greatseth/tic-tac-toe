@@ -1,4 +1,4 @@
-describe("TTT.Game instance methods", function() {
+describe("TTT.Game", function() {
   var game;
 
   var game_cells = "";
