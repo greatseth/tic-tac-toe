@@ -1,5 +1,5 @@
 TTT.Storage = function() {
-}
+};
 
 TTT.Storage.prototype = {
   parsers: {
@@ -17,5 +17,12 @@ TTT.Storage.prototype = {
   set: function(k, v) {
     localStorage[k] = v;
     return v;
+  },
+
+  increment: function(k) {
+    var v = this.get(k, "Int");
+    if (undefined === v) { v = 0; }
+    this.set(k, v + 1);
+    return this.get(k, "Int");
   }
 };

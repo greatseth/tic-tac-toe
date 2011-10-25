@@ -47,4 +47,24 @@ describe("TTT.Storage", function() {
       });
     });
   });
+
+  describe("increment", function() {
+    describe("when given a non-existing key", function() {
+      it("sets the key to 1 and returns 1", function() {
+        expect(storage.increment("undefined")).toEqual(1);
+      });
+    });
+
+    describe("when given an existing key", function() {
+      beforeEach(function() {
+        storage.set("counter", 0);
+      });
+
+      it("increments the counter", function() {
+        expect(storage.increment("counter")).toEqual(1);
+        expect(storage.increment("counter")).toEqual(2);
+        expect(storage.increment("counter")).toEqual(3);
+      });
+    });
+  });
 });
