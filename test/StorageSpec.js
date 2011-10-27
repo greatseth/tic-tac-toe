@@ -67,4 +67,30 @@ describe("TTT.Storage", function() {
       });
     });
   });
+
+  describe("save_object", function() {
+    var obj;
+   
+    beforeEach(function() {
+      obj = { foo: "bar" };
+    });
+
+    it("saves a JSON an object", function() {
+      storage.save_object('foo', obj);
+      expect(JSON.parse(storage.get('foo'))).toEqual(obj);
+    });
+  });
+
+  describe("get_object", function() {
+    var obj;
+   
+    beforeEach(function() {
+      obj = { foo: "bar" };
+      storage.set('foo', JSON.stringify(obj));
+    });
+
+    it("returns a parsed JSON object", function() {
+      expect(storage.get_object('foo')).toEqual(obj);
+    });
+  });
 });
