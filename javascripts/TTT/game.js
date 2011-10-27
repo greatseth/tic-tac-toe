@@ -3,7 +3,6 @@
 TTT.Game = function(configuration) {
   this.callbacks = {};
   if (configuration) { configuration(this); }
-  this.advance_turn();
 };
 
 TTT.Game.STATES = {

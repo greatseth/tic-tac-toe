@@ -35,6 +35,7 @@ TTT.UI = {
     };
 
     game.callbacks.win = function(winning_set) {
+
       this.play_audio("applause");
       $(".player").removeClass("active");
       for (var i = 0; i < winning_set.length; i++) {
@@ -43,16 +44,19 @@ TTT.UI = {
       $("#notice").text(this.mark_for_turn() + " wins!");
     };
 
-    var preload_audio = [
-      "1", "2", "3", "4", "5", "6", "7", "8", "9",
-      "Sad-Trombone",
-      "applause"
-    ];
 
-    for (var i = 0; i < preload_audio.length; i++) {
-      game.load_audio(preload_audio[i]);
+    for (var i = 0; i < TTT.UI.sounds.length; i++) {
+      game.load_audio(TTT.UI.sounds[i]);
     }
+
+    game.advance_turn();
   },
+
+  sounds: [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9",
+    "Sad-Trombone",
+    "applause"
+  ],
 
   observe_mute: function() {
     var mute = $("#mute");

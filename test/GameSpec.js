@@ -7,6 +7,7 @@ describe("TTT.Game", function() {
   beforeEach(function() {
     game = new TTT.Game(function(g) {
       g.set_cells($(game_cells));
+      g.advance_turn();
     });
   });
 
