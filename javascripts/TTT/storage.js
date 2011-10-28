@@ -4,15 +4,15 @@ TTT.Storage = function() {
 TTT.Storage.prototype = {
   parsers: {
     Int  : parseInt,
-    JSON : JSON.parse
   },
 
   get: function(k, coerceType) {
-    var result = localStorage[k];
-    if (result && coerceType) {
-      result = this.parsers[coerceType](result);
-    }
-    return result;
+    return localStorage[k];
+  },
+
+  get_int: function(k) {
+    var n = parseInt(this.get(k));
+    if (!isNaN(n)) return n;
   },
 
   set: function(k, v) {
@@ -21,10 +21,10 @@ TTT.Storage.prototype = {
   },
 
   increment: function(k) {
-    var v = this.get(k, "Int");
+    var v = this.get_int(k);
     if (undefined === v) { v = 0; }
     this.set(k, v + 1);
-    return this.get(k, "Int");
+    return this.get_int(k);
   },
 
   save_object: function(k, obj) {
@@ -33,6 +33,6 @@ TTT.Storage.prototype = {
   },
 
   get_object: function(k) {
-    return this.get(k, "JSON");
+    return JSON.parse(this.get(k));
   }
 };

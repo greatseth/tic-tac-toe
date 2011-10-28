@@ -28,22 +28,20 @@ describe("TTT.Storage", function() {
         });
       });
     });
+  });
 
-    describe("when given a key and a type to coerce found a value into", function() {
-      describe("when given a type of 'Int'", function() {
-        describe("when the given key has a value set", function() {
-          it("returns the value as an integer", function() {
-            localStorage["foo"] = 42;
-            expect(localStorage["foo"]).toEqual("42");
-            expect(storage.get("foo", "Int")).toEqual(42);
-          });
-        });
+  describe("get_int", function() {
+    describe("when the given key has a value set", function() {
+      it("returns the value as an integer", function() {
+        localStorage["foo"] = 42;
+        expect(localStorage["foo"]).toEqual("42");
+        expect(storage.get_int("foo")).toEqual(42);
+      });
+    });
 
-        describe("when the given key does not have a value set", function() {
-          it("returns null", function() {
-            expect(storage.get("foo", "Int")).toEqual(null);
-          });
-        });
+    describe("when the given key does not have a value set", function() {
+      it("returns null", function() {
+        expect(storage.get_int("foo")).toEqual(null);
       });
     });
   });
